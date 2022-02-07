@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
+    <string name="more">More…</string>
+    <string name="like">Like</string>
+    <string name="likesCounter" translatable="false">125</string>
+    <string name="sharesCounter" translatable="false">50000</string>
+    <string name="watchesCounter" translatable="false">500K</string>
 </resources>
