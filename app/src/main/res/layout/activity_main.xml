@@ -14,7 +14,9 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@sample/posts_avatars" />
+        tools:srcCompat="@sample/posts_avatars"
+        app:srcCompat="@drawable/post_avatar"
+        />
 
     <TextView
         android:id="@+id/author"
@@ -42,18 +44,17 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/published" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/menu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="29dp"
+        android:layout_height="35dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/more"
         app:layout_constraintBottom_toBottomOf="@+id/author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/author"
         app:layout_constraintTop_toTopOf="@id/author"
-        app:srcCompat="@drawable/ic_baseline_more_vert_24"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/topBarrier"

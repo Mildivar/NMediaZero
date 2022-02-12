@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             }
             looksCounter.text = post.looksCounter.toString()
         }
-
     }
 
     private fun counter(item: Int): String {
@@ -62,7 +61,6 @@ class MainActivity : AppCompatActivity() {
                 (num + "K")
             }
             in 10_000..999_999 -> {
-
                     ((item / 1000).toString() + "K")
             }
             in 1_000_000..1_000_000_000 -> {
