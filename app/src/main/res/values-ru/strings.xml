@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Нетология</string>
     <string name="nmedia">Нетология!</string>
+    <string name="more">Ещё...</string>
+    <string name="like">Лайк</string>
 </resources>
