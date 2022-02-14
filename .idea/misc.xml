@@ -3,8 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.132" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1975" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1975" />
         <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2125" />
-        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_liked_24.xml" value="0.1485" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_outline_favorite_24.xml" value="0.137" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/ic_outline_favorite_border_24.xml" value="0.137" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/like_24.xml" value="0.1375" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/liked_24.xml" value="0.1485" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/drawable/post_avatar.xml" value="0.137" />
+        <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2125" />
         <entry key="..\:/Users/Mildivar/Documents/NETOLOGY/KOTLIN/NMedia/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2125" />
       </map>
