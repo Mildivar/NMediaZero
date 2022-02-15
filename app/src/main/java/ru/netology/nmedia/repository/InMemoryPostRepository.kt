@@ -28,7 +28,7 @@ class InMemoryPostRepository:PostRepository {
     override fun like() {
         val post = _data.value ?: return
         _data.value = _data.value?.copy(
-            likeCounter = if (post.likedByMe) post.likeCounter + counter else post.likeCounter - counter,
+            likeCounter = if (post.likedByMe) post.likeCounter - counter else post.likeCounter + counter,
             likedByMe = !post.likedByMe,
         )
     }
