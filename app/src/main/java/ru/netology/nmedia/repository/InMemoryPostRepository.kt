@@ -28,24 +28,33 @@ class InMemoryPostRepository:PostRepository {
     private val data = MutableLiveData(post)
 
     override fun likeById(id: Long) {
-         post = post.map { post ->
-             if (post.id == id) {
-                 post.copy(likeCounter = post.likeCounter - counter,
-                 likedByMe = !post.likedByMe)}
-                 else {
-                 post.copy(likeCounter = post.likeCounter + counter)
-                 }
-         }
+        post = post.map { post ->
+            if (post.id == id) {
+                post.copy(
+                    likeCounter = post.likeCounter - counter,
+                    likedByMe = !post.likedByMe
+                )
+            } else {
+                post.copy(likeCounter = post.likeCounter + counter)
+            }
+        }
         data.value = post
     }
 
     override fun shareById(id: Long) {
-        val post = data.value ?: return
+        post = post.map { posts ->
+            if (posts.id == id) {
+                posts.copy(
+                    sharesCounter = posts.sharesCounter + counter
+                )
+            } else posts
+
+//        val post = data.value ?: return
 //        data.value = data.value?.copy(
 //            sharesCounter = post.sharesCounter + counter
 //        )
+        }
     }
+        override fun getAll(): LiveData<List<Post>> = data
 
-    override fun getAll(): LiveData<List<Post>>  = data
-
-}
+    }
