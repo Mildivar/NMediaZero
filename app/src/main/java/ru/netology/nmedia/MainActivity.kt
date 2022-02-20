@@ -3,8 +3,9 @@ package ru.netology.nmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.viewmodel.PostViewModel
+        import ru.netology.nmedia.viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -18,29 +19,16 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel: PostViewModel by viewModels()
-        with(binding) {
-            viewModel.data.observe(this@MainActivity) { post ->
-
-                author.text = post.author
-                published.text = post.published
-                content.text = post.content
-                if (post.likedByMe) likes.setImageResource(R.drawable.ic_liked_24)
-                else likes.setImageResource(R.drawable.ic_like_24)
-                likesCounter.text = counter(post.likeCounter)
-                sharesCounter.text = counter(post.sharesCounter)
-                looksCounter.text = post.looksCounter.toString()
-            }
-            likes.setOnClickListener {
-                viewModel.like()
-            }
-            share.setOnClickListener {
-                viewModel.share()
-            }
+        val adapter = PostAdapter {
+            viewModel.likeById(it.id)
+            viewModel.shareById(it.id)
         }
+        binding.root.adapter = adapter
+        viewModel.data.observe(this, adapter::submitList)
     }
 }
 
-private fun counter(item: Int): String {
+fun counter(item: Int): String {
     return when (item) {
         in 1000..9999 -> {
             val num = roundOffDecimal(item / 1000.0)
