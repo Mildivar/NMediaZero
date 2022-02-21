@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-        import ru.netology.nmedia.viewmodel.PostViewModel
+import ru.netology.nmedia.viewmodel.PostViewModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter {
-            viewModel.likeById(it.id)
-            viewModel.shareById(it.id)
-        }
+        val adapter = PostAdapter(
+            { viewModel.likeById(it.id) },
+            { viewModel.shareById(it.id) }
+        )
         binding.root.adapter = adapter
         viewModel.data.observe(this, adapter::submitList)
     }
