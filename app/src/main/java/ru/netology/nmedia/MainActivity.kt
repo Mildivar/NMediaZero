@@ -28,26 +28,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun counter(item: Int): String {
-    return when (item) {
-        in 1000..9999 -> {
-            val num = roundOffDecimal(item / 1000.0)
-            (num + "K")
-        }
-        in 10_000..999_999 -> {
-            ((item / 1000).toString() + "K")
-        }
-        in 1_000_000..1_000_000_000 -> {
-            val num = roundOffDecimal(item / 1_000_000.0)
-            (num + "M")
-        }
-        else -> item.toString()
-    }
 
-}
-
-private fun roundOffDecimal(number: Double): String {
-    val df = DecimalFormat("#.#")
-    df.roundingMode = RoundingMode.FLOOR
-    return df.format(number).toString()
-}

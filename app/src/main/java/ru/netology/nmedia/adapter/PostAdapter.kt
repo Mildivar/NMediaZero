@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
-import ru.netology.nmedia.counter
 import ru.netology.nmedia.databinding.CardPostBinding
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 typealias LikeClickListener = (Post) -> Unit
 typealias ShareClickListener = (Post) -> Unit
@@ -64,4 +65,27 @@ class PostDiffItemCallback : DiffUtil.ItemCallback<Post>() {
 
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean =
         oldItem == newItem
+}
+fun counter(item: Int): String {
+    return when (item) {
+        in 1000..9999 -> {
+            val num = roundOffDecimal(item / 1000.0)
+            (num + "K")
+        }
+        in 10_000..999_999 -> {
+            ((item / 1000).toString() + "K")
+        }
+        in 1_000_000..1_000_000_000 -> {
+            val num = roundOffDecimal(item / 1_000_000.0)
+            (num + "M")
+        }
+        else -> item.toString()
+    }
+
+}
+
+private fun roundOffDecimal(number: Double): String {
+    val df = DecimalFormat("#.#")
+    df.roundingMode = RoundingMode.FLOOR
+    return df.format(number).toString()
 }
