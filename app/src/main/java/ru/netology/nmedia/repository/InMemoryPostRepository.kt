@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
 
-class InMemoryPostRepository:PostRepository {
+class InMemoryPostRepository : PostRepository {
 
     private var counter = 1
 
-    private var post = List(500) {
+    private var posts = List(500) {
         Post(
             id = it.toLong(),
             author = "Нетология. Университет интернет-профессий будущего",
@@ -25,12 +25,12 @@ class InMemoryPostRepository:PostRepository {
         )
     }.reversed()
 
-    private val data = MutableLiveData(post)
+    private val data = MutableLiveData(posts)
 
     override fun likeById(id: Long) {
-        post = post.map { post ->
+        posts = posts.map { post ->
             if (post.id == id) {
-               if (post.likedByMe) {
+                if (post.likedByMe) {
                     post.copy(
                         likeCounter = post.likeCounter - 1,
                         likedByMe = false
@@ -38,17 +38,16 @@ class InMemoryPostRepository:PostRepository {
                 } else {
                     post.copy(
                         likeCounter = post.likeCounter + 1,
-                    likedByMe = true
+                        likedByMe = true
                     )
                 }
-            }
-            else post
+            } else post
         }
-        data.value = post
+        data.value = posts
     }
 
     override fun shareById(id: Long) {
-        post = post.map { posts ->
+        posts = posts.map { posts ->
             if (posts.id == id) {
                 posts.copy(
                     sharesCounter = posts.sharesCounter + counter
@@ -60,8 +59,28 @@ class InMemoryPostRepository:PostRepository {
 //            sharesCounter = post.sharesCounter + counter
 //        )
         }
-        data.value = post
+        data.value = posts
     }
-        override fun getAll(): LiveData<List<Post>> = data
 
+    override fun getAll(): LiveData<List<Post>> = data
+    override fun removeByID(id: Long) {
+        posts = posts.filter {
+            it.id != id
+        }
+        data.value = posts
     }
+
+    override fun save(post: Post) {
+        if (post.id == 0L) {
+            val newID = posts.firstOrNull()?.id ?: post.id
+            posts = listOf(post.copy(id = newID + 1)) + posts
+            data.value = posts
+            return
+        }
+
+        posts = posts.map {
+            if (it.id != post.id) it else it.copy(content = post.content)
+        }
+        data.value = posts
+    }
+}

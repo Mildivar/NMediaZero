@@ -6,4 +6,5 @@
     <string name="like">Лайк</string>
     <string name="shares">Shares</string>
     <string name="looks">Looks</string>
+    <string name="post_remove">Удалить</string>
 </resources>
