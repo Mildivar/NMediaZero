@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onEditClick(post: Post) {
                     viewModel.edit(post)
+
+                }override fun onLookClick(post: Post) {
+                    viewModel.lookById(post.id)
                 }
 
             }

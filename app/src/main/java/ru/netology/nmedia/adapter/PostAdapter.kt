@@ -17,6 +17,7 @@ interface ActionListener{
     fun onShareClick(post:Post){}
     fun onRemoveClick(post:Post){}
     fun onEditClick(post:Post){}
+    fun onLookClick(post:Post){}
 }
 
 class PostAdapter(
@@ -53,12 +54,14 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            if (post.likedByMe) likes.setImageResource(R.drawable.ic_liked_24)
-            else likes.setImageResource(R.drawable.ic_like_24)
-            likesCounter.text = counter(post.likeCounter)
-            sharesCounter.text = counter(post.sharesCounter)
-            looksCounter.text = post.looksCounter.toString()
-
+            likes.isChecked = post.likedByMe
+            likes.text = counter(post.likeCounter).toString()
+//            if (post.likedByMe) likes.setImageResource(R.drawable.ic_liked_24)
+//            else likes.setImageResource(R.drawable.ic_like_24)
+//            likesCounter.text = counter(post.likeCounter)
+            share.text = counter(post.sharesCounter)
+            looks.text = post.looksCounter.toString()
+            looks.setOnClickListener{actionListener.onLookClick(post)}
             likes.setOnClickListener { actionListener.onLikeClick(post) }
             share.setOnClickListener { actionListener.onShareClick(post) }
             menu.setOnClickListener {

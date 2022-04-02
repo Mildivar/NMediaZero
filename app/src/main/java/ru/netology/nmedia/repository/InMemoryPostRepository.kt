@@ -46,41 +46,51 @@ class InMemoryPostRepository : PostRepository {
         data.value = posts
     }
 
-    override fun shareById(id: Long) {
+    override fun lookById(id: Long) {
         posts = posts.map { posts ->
             if (posts.id == id) {
                 posts.copy(
-                    sharesCounter = posts.sharesCounter + counter
+                    looksCounter = posts.looksCounter + counter
                 )
             } else posts
+        }
+        data.value = posts
+    }
+        override fun shareById(id: Long) {
+            posts = posts.map { posts ->
+                if (posts.id == id) {
+                    posts.copy(
+                        sharesCounter = posts.sharesCounter + counter
+                    )
+                } else posts
 
 //        val post = data.value ?: return
 //        data.value = data.value?.copy(
 //            sharesCounter = post.sharesCounter + counter
 //        )
-        }
-        data.value = posts
-    }
-
-    override fun getAll(): LiveData<List<Post>> = data
-    override fun removeByID(id: Long) {
-        posts = posts.filter {
-            it.id != id
-        }
-        data.value = posts
-    }
-
-    override fun save(post: Post) {
-        if (post.id == 0L) {
-            val newID = posts.firstOrNull()?.id ?: post.id
-            posts = listOf(post.copy(id = newID + 1)) + posts
+            }
             data.value = posts
-            return
         }
 
-        posts = posts.map {
-            if (it.id != post.id) it else it.copy(content = post.content)
+        override fun getAll(): LiveData<List<Post>> = data
+        override fun removeByID(id: Long) {
+            posts = posts.filter {
+                it.id != id
+            }
+            data.value = posts
         }
-        data.value = posts
+
+        override fun save(post: Post) {
+            if (post.id == 0L) {
+                val newID = posts.firstOrNull()?.id ?: post.id
+                posts = listOf(post.copy(id = newID + 1)) + posts
+                data.value = posts
+                return
+            }
+
+            posts = posts.map {
+                if (it.id != post.id) it else it.copy(content = post.content)
+            }
+            data.value = posts
+        }
     }
-}

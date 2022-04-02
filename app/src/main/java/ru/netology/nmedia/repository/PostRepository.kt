@@ -9,5 +9,6 @@ interface PostRepository {
     fun getAll():LiveData<List<Post>>
     fun removeByID(id: Long)
     fun save(post: Post)
+    fun lookById(id:Long)
 //    val data:LiveData<Post>
 }

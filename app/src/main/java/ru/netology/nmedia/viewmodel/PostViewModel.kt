@@ -28,6 +28,10 @@ class PostViewModel : ViewModel() {
         repository.likeById(id)
     }
 
+    fun lookById(id:Long) {
+        repository.lookById(id)
+    }
+
     fun shareById(id: Long) {
         repository.shareById(id)
     }

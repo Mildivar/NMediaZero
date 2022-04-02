@@ -44,17 +44,17 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/published" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
-        android:layout_width="29dp"
-        android:layout_height="35dp"
-        android:background="@android:color/transparent"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@string/more"
         app:layout_constraintBottom_toBottomOf="@+id/author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/author"
         app:layout_constraintTop_toTopOf="@id/author"
-        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+        style="@style/Widget.App.Menu"
+        />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/topBarrier"
@@ -83,68 +83,71 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="content" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin16"
         android:contentDescription="@string/like"
+        android:checkable="true"
+        app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        app:srcCompat="@drawable/ic_like_24" />
+        style="@style/Widget.App.LikeCheckbox"
+        />
 
-    <TextView
+<!--    <TextView-->
         android:id="@+id/likesCounter"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="32dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="4dp"
         android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/likes"
         app:layout_constraintStart_toEndOf="@+id/likes"
         app:layout_constraintTop_toTopOf="@+id/likes"
         tools:text="@string/likesCounter" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/share"
+        style="@style/Widget.App.LikeCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/shares"
+        app:icon="@drawable/ic_baseline_share_24"
         app:layout_constraintBottom_toBottomOf="@+id/likes"
-        app:layout_constraintStart_toEndOf="@+id/likesCounter"
-        app:layout_constraintTop_toTopOf="@+id/likes"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_share_24" />
+        app:layout_constraintStart_toEndOf="@+id/likes"
+        app:layout_constraintTop_toTopOf="@+id/likes" />
 
-    <TextView
-        android:id="@+id/sharesCounter"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:singleLine="true"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/likes"
-        app:layout_constraintStart_toEndOf="@+id/share"
-        app:layout_constraintTop_toTopOf="@+id/likes"
-        app:layout_constraintVertical_bias="0.8"
-        tools:text="@string/sharesCounter" />
+<!--    <TextView-->
+<!--        android:id="@+id/sharesCounter"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:layout_marginStart="4dp"-->
+<!--        android:singleLine="true"-->
+<!--        android:text=""-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/likes"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/share"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/likes"-->
+<!--        tools:text="@string/sharesCounter" />-->
 
-    <TextView
-        android:id="@+id/looksCounter"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        tools:text="@string/watchesCounter" />
+<!--    <TextView-->
+<!--        android:id="@+id/looksCounter"-->
+<!--        android:layout_width="48dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text=""-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"-->
+<!--        tools:text="@string/watchesCounter" />-->
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/looks"
+        style="@style/Widget.App.LikeCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:contentDescription="@string/looks"
-        app:layout_constraintEnd_toStartOf="@+id/looksCounter"
-        app:layout_constraintTop_toTopOf="@+id/looksCounter"
-        app:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />
+        app:rippleColor="?attr/colorPrimaryDark"
+        app:icon="@drawable/ic_baseline_remove_red_eye_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bottomBarrier" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

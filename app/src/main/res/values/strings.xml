@@ -10,5 +10,5 @@
     <string name="looks">Looks</string>
     <string name="post_remove">Remove</string>
     <string name="post_text" translatable="false">content_hint</string>
-    <string name="post_edit" translatable="false">Edit</string>
+    <string name="post_edit">Edit</string>
 </resources>
