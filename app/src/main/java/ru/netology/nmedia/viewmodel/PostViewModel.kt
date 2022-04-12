@@ -39,7 +39,7 @@ class PostViewModel : ViewModel() {
     val data = repository.getAll()
     fun removeByID(id: Long) = repository.removeByID(id)
 
-    val edited = MutableLiveData(empty)
+    private val edited = MutableLiveData(empty)
 
     fun save() {
         edited.value?.let {
