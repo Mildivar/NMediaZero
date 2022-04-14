@@ -2,9 +2,13 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
+import ru.netology.nmedia.adapter.ActionListener
+import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import ru.netology.nmedia.util.AndroidUtils
+import ru.netology.nmedia.viewmodel.PostViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,67 +18,63 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val post = Post(
-            id = 1,
-            author = "Нетология. Университет интернет-профессий будущего",
-            published = "21 мая в 18:36",
-            content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. " +
-                    "Затем появились курсы по дизайну, разработке, аналитике и управлению. " +
-                    "Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. " +
-                    "Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше," +
-                    " целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку " +
-                    "перемен → http://netolo.gy/fyb",
-            likeCounter = 10999,
-            sharesCounter = 1099999,
-            looksCounter = 567
-            )
 
-        with(binding) {
-            author.text = post.author
-            published.text = post.published
-            content.text = post.content
-            likesCounter.text = counter(post.likeCounter)
-            likes.setOnClickListener {
-                post.likedByMe = !post.likedByMe
-                val image = if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
-                post.likeCounter = if (post.likedByMe) {
-                    ++post.likeCounter
-                } else {
-                    --post.likeCounter
+        val viewModel: PostViewModel by viewModels()
+        val adapter = PostAdapter(
+            object :ActionListener{
+                override fun onLikeClick(post: Post) {
+                    viewModel.likeById(post.id)
                 }
-                likesCounter.text = counter(post.likeCounter)
-                likes.setImageResource(image)
+
+                override fun onShareClick(post: Post) {
+                    viewModel.shareById(post.id)
+                }
+
+                override fun onRemoveClick(post: Post) {
+                    viewModel.removeByID(post.id)
+                }
+
+                override fun onEditClick(post: Post) {
+                    viewModel.edit(post)
+
+                }override fun onLookClick(post: Post) {
+                    viewModel.lookById(post.id)
+                }
+
             }
-            sharesCounter.text = counter(post.sharesCounter)
-            share.setOnClickListener {
-                val share = ++post.sharesCounter
-                sharesCounter.text = counter(share)
+//            likeClickListener = { viewModel.likeById(it.id) },
+//            shareClickListener = { viewModel.shareById(it.id) },
+//            removeListener = { (viewModel.removeByID(it.id)) }
+        )
+        binding.list.adapter = adapter
+        viewModel.data.observe(this, adapter::submitList)
+
+        viewModel.edited.observe(this){
+            if (it.id ==0L){
+                return@observe
             }
-            looksCounter.text = post.looksCounter.toString()
+
+            with (binding.content){
+                requestFocus()
+                setText(it.content)
+            }
         }
-    }
 
-    private fun counter(item: Int): String {
-        return when (item) {
-            in 1000..9999 -> {
-                val num = roundOffDecimal(item / 1000.0)
-                (num + "K")
+        binding.save.setOnClickListener{
+            val text = binding.content.text.toString()
+            if (binding.content.text.isNullOrBlank()){
+                Toast.makeText(this,"Content is empty",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-            in 10_000..999_999 -> {
-                    ((item / 1000).toString() + "K")
-            }
-            in 1_000_000..1_000_000_000 -> {
-                val num = roundOffDecimal(item / 1_000_000.0)
-                (num + "M")
-            }
-            else -> item.toString()
+            viewModel.changeContent(text)
+            viewModel.save()
+
+            binding.content.clearFocus()
+            binding.content.setText("")
+
+            AndroidUtils.hideKeyboard(binding.content)
         }
-
-    }
-
-    private fun roundOffDecimal(number: Double): String {
-        val df = DecimalFormat("#.#")
-        df.roundingMode = RoundingMode.FLOOR
-        return df.format(number).toString()
     }
 }
+
+
