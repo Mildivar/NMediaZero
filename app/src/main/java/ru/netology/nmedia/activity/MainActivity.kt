@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -64,6 +65,17 @@ class MainActivity : AppCompatActivity() {
                     viewModel.lookById(post.id)
                 }
 
+                override fun onVideoClick(post: Post) {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.ACTION_VIEW,Uri.parse("https://youtu.be/mCqApeRK6KA"))
+                    }
+//                    val shareIntent =
+//                        Intent.createChooser(intent, getString(R.string.add_post))
+                    startActivity(intent)
+                }
+
             }
 //            likeClickListener = { viewModel.likeById(it.id) },
 //            shareClickListener = { viewModel.shareById(it.id) },
@@ -75,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         binding.add.setOnClickListener {
             newPostContract.launch("")
         }
-
     }
 }
 

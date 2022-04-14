@@ -8,7 +8,7 @@ class InMemoryPostRepository : PostRepository {
 
     private var counter = 1
 
-    private var posts = List(500) {
+    private var posts = List(10) {
         Post(
             id = it.toLong(),
             author = "Нетология. Университет интернет-профессий будущего",
@@ -21,9 +21,58 @@ class InMemoryPostRepository : PostRepository {
                     "перемен → http://netolo.gy/fyb",
             likeCounter = 10999,
             sharesCounter = 1099999,
-            looksCounter = 567
+            looksCounter = 10999,
+            video = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
         )
-    }.reversed()
+
+        Post(
+            id = it.toLong(),
+            author = "Нетология. Университет интернет-профессий будущего",
+            published = "21 мая в 18:36",
+            content = "$it Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. " +
+                    "Затем появились курсы по дизайну, разработке, аналитике и управлению. " +
+                    "Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. " +
+                    "Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше," +
+                    " целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку " +
+                    "перемен → http://netolo.gy/fyb",
+            likeCounter = 10999,
+            sharesCounter = 1099999,
+            looksCounter = 10999,
+            video = ""
+        )
+
+        Post(
+            id = it.toLong(),
+            author = "Нетология. Университет интернет-профессий будущего",
+            published = "21 мая в 18:36",
+            content = "$it Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. " +
+                    "Затем появились курсы по дизайну, разработке, аналитике и управлению. " +
+                    "Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. " +
+                    "Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше," +
+                    " целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку " +
+                    "перемен → http://netolo.gy/fyb",
+            likeCounter = 10999,
+            sharesCounter = 1099999,
+            looksCounter = 10999,
+            video = ""
+        )
+
+        Post(
+            id = it.toLong(),
+            author = "Нетология. Университет интернет-профессий будущего",
+            published = "21 мая в 18:36",
+            content = "$it Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. " +
+                    "Затем появились курсы по дизайну, разработке, аналитике и управлению. " +
+                    "Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. " +
+                    "Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше," +
+                    " целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку " +
+                    "перемен → http://netolo.gy/fyb",
+            likeCounter = 10999,
+            sharesCounter = 1099999,
+            looksCounter = 10999,
+            video = ""
+        )
+    }
 
     private val data = MutableLiveData(posts)
 
@@ -56,7 +105,8 @@ class InMemoryPostRepository : PostRepository {
         }
         data.value = posts
     }
-        override fun shareById(id: Long) {
+
+    override fun shareById(id: Long) {
             posts = posts.map { posts ->
                 if (posts.id == id) {
                     posts.copy(
@@ -94,3 +144,4 @@ class InMemoryPostRepository : PostRepository {
             data.value = posts
         }
     }
+
