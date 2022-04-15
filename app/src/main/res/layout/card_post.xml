@@ -163,7 +163,7 @@
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/videoImage"
         android:layout_width="408dp"
         android:layout_height="233dp"
@@ -171,6 +171,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:srcCompat="@drawable/screen_shot_1" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="playButton,videoImage" />
 
 
 
