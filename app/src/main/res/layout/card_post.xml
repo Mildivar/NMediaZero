@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin16"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <ImageView
         android:id="@+id/avatar"
@@ -69,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin16"
-        android:layout_marginBottom="@dimen/margin16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBarrier"
@@ -85,15 +84,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
+        style="@style/Widget.App.LikeCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/like"
         android:checkable="true"
+        android:contentDescription="@string/like"
         app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomBarrier"
-        style="@style/Widget.App.LikeCheckbox"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/videoImage"
+        tools:ignore="TouchTargetSizeCheck" />
 
 <!--    <TextView-->
         android:id="@+id/likesCounter"
@@ -115,7 +114,8 @@
         app:icon="@drawable/ic_baseline_share_24"
         app:layout_constraintBottom_toBottomOf="@+id/likes"
         app:layout_constraintStart_toEndOf="@+id/likes"
-        app:layout_constraintTop_toTopOf="@+id/likes" />
+        app:layout_constraintTop_toTopOf="@+id/likes"
+        tools:ignore="TouchTargetSizeCheck" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/sharesCounter"-->
@@ -145,9 +145,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/looks"
-        app:rippleColor="?attr/colorPrimaryDark"
         app:icon="@drawable/ic_baseline_remove_red_eye_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bottomBarrier" />
+        app:layout_constraintTop_toBottomOf="@+id/videoImage"
+        app:rippleColor="?attr/colorPrimaryDark"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/play"
+        app:layout_constraintBottom_toBottomOf="@+id/videoImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/videoImage"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/videoImage"
+        android:layout_width="408dp"
+        android:layout_height="233dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:srcCompat="@drawable/screen_shot_1" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="playButton,videoImage" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

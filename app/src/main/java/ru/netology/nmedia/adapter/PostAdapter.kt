@@ -3,6 +3,8 @@ package ru.netology.nmedia.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +14,13 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-interface ActionListener{
-    fun onLikeClick(post:Post){}
-    fun onShareClick(post:Post){}
-    fun onRemoveClick(post:Post){}
-    fun onEditClick(post:Post){}
-    fun onLookClick(post:Post){}
+interface ActionListener {
+    fun onLikeClick(post: Post) {}
+    fun onShareClick(post: Post) {}
+    fun onRemoveClick(post: Post) {}
+    fun onEditClick(post: Post) {}
+    fun onLookClick(post: Post) {}
+    fun onVideoClick(post: Post) {}
 }
 
 class PostAdapter(
@@ -55,15 +58,20 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             likes.isChecked = post.likedByMe
-            likes.text = counter(post.likeCounter).toString()
+            likes.text = counter(post.likeCounter)
 //            if (post.likedByMe) likes.setImageResource(R.drawable.ic_liked_24)
 //            else likes.setImageResource(R.drawable.ic_like_24)
 //            likesCounter.text = counter(post.likeCounter)
             share.text = counter(post.sharesCounter)
-            looks.text = post.looksCounter.toString()
-            looks.setOnClickListener{actionListener.onLookClick(post)}
+            looks.text = counter(post.looksCounter)
+            looks.setOnClickListener { actionListener.onLookClick(post) }
             likes.setOnClickListener { actionListener.onLikeClick(post) }
             share.setOnClickListener { actionListener.onShareClick(post) }
+            if (post.video.isBlank()) {
+                group.isVisible = false
+            }
+            playButton.setOnClickListener { actionListener.onVideoClick(post) }
+            videoImage.setOnClickListener { actionListener.onVideoClick(post) }
             menu.setOnClickListener {
                 PopupMenu(binding.root.context, binding.menu).apply {
                     inflate(R.menu.post_menu)
@@ -93,6 +101,7 @@ class PostDiffItemCallback : DiffUtil.ItemCallback<Post>() {
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean =
         oldItem == newItem
 }
+
 fun counter(item: Int): String {
     return when (item) {
         in 1000..9999 -> {

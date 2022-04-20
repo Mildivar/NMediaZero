@@ -19,7 +19,8 @@ val empty = Post(
     likedByMe = false,
     likeCounter = 0,
     sharesCounter = 0,
-    looksCounter = 0
+    looksCounter = 0,
+    video = ""
 )
 
 class PostViewModel : ViewModel() {
@@ -32,14 +33,14 @@ class PostViewModel : ViewModel() {
         repository.lookById(id)
     }
 
-    fun shareById(id: Long) {
-        repository.shareById(id)
-    }
+//    fun shareById(id: Long) {
+//        repository.shareById(id)
+//    }
 
     val data = repository.getAll()
     fun removeByID(id: Long) = repository.removeByID(id)
 
-    val edited = MutableLiveData(empty)
+    private val edited = MutableLiveData(empty)
 
     fun save() {
         edited.value?.let {

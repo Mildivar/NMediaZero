@@ -1,9 +1,14 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activity
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
+import ru.netology.nmedia.Post
+import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.ActionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -20,14 +25,30 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel: PostViewModel by viewModels()
+
+        val newPostContract = registerForActivityResult(NewPostActivity.Contract()) { result ->
+            result?.let {
+                viewModel.changeContent(it)
+                viewModel.save()
+            }
+
+        }
+
         val adapter = PostAdapter(
-            object :ActionListener{
+            object : ActionListener {
                 override fun onLikeClick(post: Post) {
                     viewModel.likeById(post.id)
                 }
 
                 override fun onShareClick(post: Post) {
-                    viewModel.shareById(post.id)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, post.content)
+                    }
+                    val shareIntent =
+                        Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                    startActivity(shareIntent)
                 }
 
                 override fun onRemoveClick(post: Post) {
@@ -35,10 +56,24 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onEditClick(post: Post) {
+                    newPostContract.launch(post.content)
                     viewModel.edit(post)
 
-                }override fun onLookClick(post: Post) {
+                }
+
+                override fun onLookClick(post: Post) {
                     viewModel.lookById(post.id)
+                }
+
+                override fun onVideoClick(post: Post) {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.ACTION_VIEW,Uri.parse("https://youtu.be/mCqApeRK6KA"))
+                    }
+//                    val shareIntent =
+//                        Intent.createChooser(intent, getString(R.string.add_post))
+                    startActivity(intent)
                 }
 
             }
@@ -49,30 +84,8 @@ class MainActivity : AppCompatActivity() {
         binding.list.adapter = adapter
         viewModel.data.observe(this, adapter::submitList)
 
-        viewModel.edited.observe(this){
-            if (it.id ==0L){
-                return@observe
-            }
-
-            with (binding.content){
-                requestFocus()
-                setText(it.content)
-            }
-        }
-
-        binding.save.setOnClickListener{
-            val text = binding.content.text.toString()
-            if (binding.content.text.isNullOrBlank()){
-                Toast.makeText(this,"Content is empty",Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            viewModel.changeContent(text)
-            viewModel.save()
-
-            binding.content.clearFocus()
-            binding.content.setText("")
-
-            AndroidUtils.hideKeyboard(binding.content)
+        binding.add.setOnClickListener {
+            newPostContract.launch("")
         }
     }
 }
