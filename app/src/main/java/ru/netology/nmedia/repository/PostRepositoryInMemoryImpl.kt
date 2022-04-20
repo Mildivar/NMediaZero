@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
 
-class InMemoryPostRepository : PostRepository {
+class PostRepositoryInMemoryImpl : PostRepository {
 
     private var nextID = 1L
 

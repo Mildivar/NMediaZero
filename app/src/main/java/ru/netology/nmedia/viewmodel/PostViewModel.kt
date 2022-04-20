@@ -4,12 +4,12 @@ package ru.netology.nmedia.viewmodel
 //связывание UI с бизнес-логикой. В нашем случае, вся бизнес-логика
 //хранится в Repository
 
-import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.Post
-import ru.netology.nmedia.repository.InMemoryPostRepository
 import ru.netology.nmedia.repository.PostRepository
+import ru.netology.nmedia.repository.PostRepositoryFileImpl
 
 val empty = Post(
     id = 0L,
@@ -23,8 +23,8 @@ val empty = Post(
     video = ""
 )
 
-class PostViewModel : ViewModel() {
-    private val repository: PostRepository = InMemoryPostRepository()
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositoryFileImpl(application)
     fun likeById(id: Long) {
         repository.likeById(id)
     }
